@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>支付宝支付</title>
+    <style>
+        html{
+            font-size:16px;position: relative;
+        }
+        html,div,body,p,img,h1,h2,h3,h4,h5,h6{
+            padding:0;margin:0;
+        }
+        .head{
+            display: flex;align-items: center;
+            height:3.5rem;line-height:3.5rem;
+            position: relative;
+            border-bottom:1px solid #ececec;
+        }
+        .text_c{
+            text-align: center;
+            width:100%;
+        }
+        .flex{
+           display: flex;
+           align-items: center;
+           flex-direction: column;
+           margin-top:3rem;
+        }
+        .back{
+            width:1.5rem;height:1.6rem;
+            position: absolute;
+        }
+        .code{
+            width:10rem;height:10rem;
+            display: flex;
+            justify-content: center;align-items: center;
+            border:1px solid #ececec;
+        }
+        .code img{
+            width:95%;height:95%;
+        }
+        .mt2{
+            margin-top:2rem;
+        } 
+        .mt1{
+        margin-top:1rem;
+        }
+        .ml1{
+            margin-left:0.5rem;
+        }
+        .desc{
+            font-size:1rem;
+            font-weight:500;
+        }
+        .money{
+            font-size:1.5rem;
+            margin:1rem 0;
+            color:#F2B83C;
+            font-weight:bold;
+        }
+        .btn_pay{
+            background-color: #A01C20;
+            color:#ffffff;
+            height:2.8rem;line-height: 2.5;
+            width:95%;
+            text-align: center;
+            border-radius: 0.4rem;
+            margin:2rem  auto;
+        }
+        .mention{
+            width:95%;margin:0 auto;
+        }
+        p{
+            line-height: 2;
+            color:#787878;
+            font-size:0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!---导航栏-->
+    <div class="head">
+        <img src="./images/back.png" alt="" class="back">
+        <h3 class="text_c">支付宝支付</h3>
+    </div>
+    <div class="flex">
+        <div class="code">
+            <img src="C:\Users\baixue\Desktop\pay\images/timg.jpg" alt="" id="bb_canvas">
+        </div>
+        <div class="mt2 desc">扫描二维码进行付款</div>
+        <div class="money">￥100元</div>
+        <div class="btn_pay">立即支付</div>
+    </div>
+    <div class="mention">
+        <div>温馨提示</div>
+        <div class="mt1">
+            <p>1.点击立即支付跳转到支付宝App支付</p>
+            <div>
+                <p>2.使用支付宝扫码进行支付</p>
+                <p class="ml1">截图或者长按二维码保存到相册</p>
+                <p class="ml1">打开支付宝扫描相册二维码进行付款</p>
+                <p class="ml1">二维码有效期为5分钟请在有效期内完成支付</p>
+            </div>
+        </div>
+    </div>
+    <canvas id="myCanvas" width="300px" style="position: absolute;top:0;left:0;z-index:-999999">
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="./html2canvas.js"></script>
+<script>
+    $(function() {
+       
+        var c=document.getElementById("myCanvas");
+        var ctx=c.getContext("2d");
+        var img = new Image();
+        img.crossOrigin = "anonymous"
+        // img.src = "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png";
+        img.src = "./images/timg.jpg";
+        img.onload = function(){
+            ctx.drawImage(img, 0, 0, 300, 300);  
+        };
+        
+        
+        $(".code").click(function() {
+            console.log("44444444")
+            console.log(convertCanvasToImage(c))
+            var boyd =document.body
+            boyd.appendChild(convertCanvasToImage(c))
+            // document.querySelector(".down").setAttribute('href', convertCanvasToImage(c));
+
+            function convertCanvasToImage(canvas) {
+            var image = new Image();
+            image.setAttribute('style', 'position:absolute;z-index:300;top:5rem;left:50%;transform:translateX(-50%);border:1px solid red');
+            console.log(image,"9999")
+            image.src = canvas.toDataURL("image/png");
+            return image;
+        }
+
+
+
+            // html2canvas(document.getElementById("bb_canvas"), {
+            //     allowTaint: true,
+	  	    //     taintTest: false,
+	    	//     useCORS: true,
+            // }).then((canvas) => {
+            //     console.log(canvas,"canvas")
+            //     //将canvas转为base64格式
+            //     var imgUri = canvas.toDataURL("image/png");
+            //     console.log(imgUri,"////////")
+            //     // document.querySelector(".down").setAttribute('href', canvas.toDataURL());
+            // });
+        })
+    });
+</script>
+</html>
